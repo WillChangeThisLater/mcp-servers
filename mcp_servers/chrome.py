@@ -36,7 +36,9 @@ def screenshot(url: str, imagePath: str) -> str:
     Returns:
         imagePath
     """
+    logging.info(f"Taking screenshot of {url} and saving to {imagePath}")
     take_screenshot(url, imagePath)
+    logging.info("Took screenshot")
     return imagePath
 
 def main():
