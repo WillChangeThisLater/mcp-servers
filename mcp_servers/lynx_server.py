@@ -7,11 +7,11 @@ from mcp.server.fastmcp import FastMCP
 # Configure the logger
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-mcp = FastMCP("A server for running python and bash commands")
+mcp = FastMCP("A server for interacting with the lynx command line tool")
 
 def _format_response(result) -> str:
-    stdout_decoded = result.stdout.decode('utf-8', errors='replace')
-    stderr_decoded = result.stderr.decode('utf-8', errors='replace')
+    stdout_decoded = result.stdout.decode("utf-8", errors="replace")
+    stderr_decoded = result.stderr.decode("utf-8", errors="replace")
 
     output = f"""
     Lynx return code: {result.returncode}
@@ -27,10 +27,12 @@ def _format_response(result) -> str:
 def _duckduckgo_search(query: str) -> str:
     query_string = urllib.parse.quote_plus(query, safe='')
     url = f"https://duckduckgo.com/?&q={query_string}"
+    logging.info(f"Querying DuckDuckGo: {url}")
     result = subprocess.run(["lynx", "-dump", url], capture_output=True, check=False)
     return _format_response(result)
 
 def _view_webpage(url: str) -> str:
+    logging.info(f"Viewing webpage: {url}")
     result = subprocess.run(["lynx", "-dump", url], capture_output=True, check=True)
     return _format_response(result)
 
@@ -48,4 +50,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
