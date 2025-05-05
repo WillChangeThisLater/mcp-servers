@@ -6,12 +6,13 @@ setup(
     packages=find_packages(),
     install_requires=[
         'requests',
-        'fastmcp'
+        'fastmcp',
+        'pyppeteer'
     ],
     entry_points={
         'console_scripts': [
             'lynx-server=mcp_servers.lynx_server:main',  # Adding command for lynx server
-            # 'other-server=mcp_servers.other_server:main',  # Similarly, add if you have more servers
+            'chrome-server=mcp_servers.chrome:main',  # Adding command for lynx server
         ],
     },
     url='https://github.com/WillChangeThisLater/mcp-servers',
